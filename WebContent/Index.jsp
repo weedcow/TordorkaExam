@@ -30,7 +30,7 @@
 
 </head>
 <body>
-	<p>HELLO</p>
+	<p>HELLO2</p>
 	<div id="wrapper">
 	<div id="top">
 		<div class="container">
