@@ -32,7 +32,7 @@ public class DAOimpl implements DAO{
 	
 	public List<Test> getUsernames()
 		{
-			sql = "SELECT * FROM user";
+			sql = "SELECT * FROM users";
 			con = connect.getConnection();
 			try
 			{
@@ -41,7 +41,7 @@ public class DAOimpl implements DAO{
 				while(rset.next()) 
 				{  
 					Test username = new Test();
-					username.setID(rset.getInt("id"));
+					username.setID(rset.getInt("user_id"));
 					username.setUsername(rset.getString("username"));
 					username.setPassword(rset.getString("password"));
 					System.out.println("DAOimpl: "+username);
@@ -74,7 +74,7 @@ public class DAOimpl implements DAO{
 				
 				
 				Cars cars = new Cars();
-				cars.setID(rset.getInt("id"));
+				cars.setID(rset.getInt("car_id"));
 				cars.setBrand(rset.getString("brand"));
 				cars.setModel(rset.getString("model"));
 				cars.setPrice(rset.getInt("price"));
@@ -113,7 +113,7 @@ public class DAOimpl implements DAO{
 		{
 			
 			st = con.createStatement();
-			rset2 = st.executeQuery("SELECT * FROM user WHERE id = "+owner);
+			rset2 = st.executeQuery("SELECT * FROM users WHERE user_id = "+owner);
 			while(rset2.next()) 
 			{  
 				userOwner.setUsername(rset2.getString("username"));
@@ -142,7 +142,7 @@ public class DAOimpl implements DAO{
 	      {
 	    	  System.out.println("Username is "+ user+ " and password is " + pass);
 	        // the mysql insert statement
-	        sql = "INSERT INTO user (username, password) VALUES (?, ?)";
+	        sql = "INSERT INTO users (username, password) VALUES (?, ?)";
 
 
 	        PreparedStatement preparedStmt = con.prepareStatement(sql);
@@ -166,7 +166,7 @@ public class DAOimpl implements DAO{
 	@Override
 	public int logIn(String user, String pass) {
 		
-		sql = "SELECT * FROM user";
+		sql = "SELECT * FROM users";
 		con = connect.getConnection();
 		System.out.println(" Username "+ user + " password "+pass);
 		int userId = 0;
@@ -180,7 +180,7 @@ public class DAOimpl implements DAO{
 				String str2 = user;
 				userHolder.setUsername(rset.getString("username"));
 				userHolder.setPassword(rset.getString("password"));
-				userHolder.setID(rset.getInt("id"));
+				userHolder.setID(rset.getInt("user_id"));
 				System.out.println("the written user is : "+user);
 				System.out.println("the current database userholder is: "+ userHolder.getUsername());
 				if(str2.equals(str1)){
@@ -208,11 +208,11 @@ public class DAOimpl implements DAO{
 	}
 	
 	public Boolean buyCar(int userId, int carId){
-		sql = "UPDATE cars SET OWNER = ? WHERE id= ?";
+		sql = "UPDATE cars SET owner = ? WHERE car_id= ?";
 		con = connect.getConnection();
 		try
 		{
-			sql = "UPDATE cars SET OWNER = ? WHERE id= ?";
+			sql = "UPDATE cars SET owner = ? WHERE car_id= ?";
 			PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, carId);
             pst.setInt(2, userId);
@@ -234,7 +234,7 @@ public class DAOimpl implements DAO{
 		return false;
 	}
 	public void returnSpecificCar(int carId){
-		sql = "UPDATE cars SET OWNER = 0 WHERE id= ?";
+		sql = "UPDATE cars SET owner = 0 WHERE car_id= ?";
 		con = connect.getConnection();
 		try
 		{

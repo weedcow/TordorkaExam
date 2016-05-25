@@ -27,7 +27,7 @@ public class DBconnect {
 		try
 		{
 			con = (Connection) DriverManager.getConnection(
-			     "jdbc:mysql://localhost:3306/mandatorytest", "root", ""); 
+			     "jdbc:mysql://web63.meebox.net:3306/hansmygi_cars", "hansmygi_user", "hemmelig123kode"); 
 		}
 		catch (SQLException e2)
 		{
