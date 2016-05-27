@@ -108,12 +108,36 @@ public class ScratchServlet extends HttpServlet {
 				buyCar(request, response);
 				break;
 				case "returnCars":
-					userPath = "Index.jsp";
+					userPath = "admin.jsp";
 					returnCars(request, response);
+					break;
+				case "returnUsers":
+					userPath = "admin.jsp";
+					returnUsers(request, response);
 					break;
 				case "returnSpecificCar":
 					userPath = "Index.jsp";
 					returnSpecificCar(request, response);
+				break;
+				case "createCar":
+					userPath = "admin.jsp";
+					createCar(request, response);
+				break;
+				case "updateCar":
+					userPath = "admin.jsp";
+					updateCar(request, response);
+				break;
+				case "deleteCar":
+					userPath = "admin.jsp";
+					deleteCar(request, response);
+				break;
+				case "updateUser":
+					userPath = "admin.jsp";
+					updateUser(request, response);
+				break;
+				case "deleteUser":
+					userPath = "admin.jsp";
+					deleteUser(request, response);
 				break;
 					
 			}
@@ -126,6 +150,105 @@ public class ScratchServlet extends HttpServlet {
 	}
 	
 	
+
+	
+
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
+		String userId = request.getParameter("userId");
+		DAO myDao = new DAOimpl();
+		if(myDao.deleteUser(userId))
+		{
+			System.out.println("success");
+		}else
+		{
+			System.out.println("Error");
+		}
+		
+		
+	}
+
+	private void updateUser(HttpServletRequest request, HttpServletResponse response) {
+		String userId = request.getParameter("userId");
+		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String phone = request.getParameter("phone");
+		String level = request.getParameter("level");
+		String deleted = request.getParameter("deleted");
+		
+		DAO myDao = new DAOimpl();
+		if(myDao.updateUser(userId, username, password, firstName, lastName, phone, level, deleted, email))
+		{
+			System.out.println("success");
+		}else
+		{
+			System.out.println("Error");
+		}
+	}
+
+	private void deleteCar(HttpServletRequest request, HttpServletResponse response) {
+		String carId = request.getParameter("carId");
+		DAO myDao = new DAOimpl();
+		if(myDao.deleteCar(carId))
+		{
+			System.out.println("success");
+		}else
+		{
+			System.out.println("Error");
+		}
+		
+	}
+
+	private void updateCar(HttpServletRequest request, HttpServletResponse response) {
+		String model = request.getParameter("model");
+		String brand = request.getParameter("brand");
+		String price = request.getParameter("price");
+		String aircon = request.getParameter("aircon");
+		String seats = request.getParameter("seats");
+		String gear = request.getParameter("gear");
+		String doors = request.getParameter("doors");
+		String luggage = request.getParameter("luggage");
+		String age = request.getParameter("age");
+		String carId = request.getParameter("carId");
+		String owner = request.getParameter("owner");
+		String status = request.getParameter("status");
+		String deleted = request.getParameter("deleted");
+		
+		DAO myDao = new DAOimpl();
+		if(myDao.updateCar(model, brand, price, aircon, seats, gear, doors, luggage, age, owner, status, deleted, carId))
+		{
+			System.out.println("success");
+		}else
+		{
+			System.out.println("Error");
+		}
+		
+		
+	}
+
+	private void createCar(HttpServletRequest request, HttpServletResponse response) {
+		String model = request.getParameter("model");
+		String brand = request.getParameter("brand");
+		String price = request.getParameter("price");
+		String aircon = request.getParameter("aircon");
+		String seats = request.getParameter("seats");
+		String gear = request.getParameter("gear");
+		String doors = request.getParameter("doors");
+		String luggage = request.getParameter("luggage");
+		String age = request.getParameter("age");
+		
+		DAO myDao = new DAOimpl();
+		if(myDao.createCar(model, brand, price, aircon, seats, gear, doors, luggage, age)){
+			System.out.println("Success");
+		}
+		else{
+			System.out.println("Error");
+		}
+		
+		
+	}
 
 	private void returnSpecificCar(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException
@@ -173,13 +296,18 @@ public class ScratchServlet extends HttpServlet {
 	private void createUser(HttpServletRequest request, HttpServletResponse response){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String phone = request.getParameter("phone");
+		
 		 if (username == null || username.length() == 0 ||password == null || password.length() == 0) {
 	            url = "/index.jsp";
 	            request.setAttribute("logInResponse", "Username & Password must not be empty.");
 	        }
 		 else{
 				DAO myDao = new DAOimpl(); 
-				Boolean loggedIn = myDao.createUser(username, password);
+				Boolean loggedIn = myDao.createUser(username, password,email,firstName,lastName,phone);
 				if(loggedIn){
 					request.setAttribute("logInResponse", "Success! Please log in!");
 				}
@@ -187,6 +315,13 @@ public class ScratchServlet extends HttpServlet {
 		
 	}
 
+	private void returnUsers(HttpServletRequest request, HttpServletResponse response) {
+		DAO myDao = new DAOimpl();
+		List<Test> users = myDao.getUsernames();
+		request.setAttribute("userlist", users);
+		
+	}
+	
 	private void getAllUsernames(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException
 	{
@@ -231,12 +366,26 @@ public class ScratchServlet extends HttpServlet {
 		        }
 			 else{
 					DAO myDao = new DAOimpl(); 
-					int loggedIn = myDao.logIn(username, password);
-					if(loggedIn != 0){
+					Test loggedIn = myDao.logIn(username, password);
+					if(loggedIn != null){
+						// setting session
 						request.setAttribute("logInResponse", "Success!");
-						PrintWriter writer2 = response.getWriter();
-						writer2.println("Success!");
-						setCookie(response, username, loggedIn);
+						HttpSession session = request.getSession();
+						session.setAttribute("user", loggedIn);
+						
+						// check for admin
+						if(loggedIn.getLevel() == 1)
+						{
+							response.sendRedirect("/javaScratch55/admin.jsp");
+							// redirect admin
+							
+						}else
+						{ 
+							PrintWriter writer2 = response.getWriter();
+							writer2.println("Success! Hello "+loggedIn.getFirstName());
+							setCookie(response, username, loggedIn.getID());
+						}
+						
 						
 					}
 					else{

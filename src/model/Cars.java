@@ -24,13 +24,20 @@ public class Cars {
 	
 	public Test User;
 	
-	public Cars(int id, Test user,String brand, String model, int price, int owner) {
+	public Cars(int id, Test user,String brand, String model, int price, int owner, int status, int doors, int luggage, int reqAge, int deleted, String gearbox, String aircon) {
 		super();
 		this.ID = id;
 		this.Brand = brand;
 		this.Model = model;
 		this.Price = price;
 		this.Owner = owner;
+		this.Status = status;
+		this.Doors = doors;
+		this.Luggage = luggage;
+		this.ReqAge = reqAge;
+		this.Deleted = deleted;
+		this.Aircon = aircon;
+		this.Gearbox = gearbox;
 		this.User = user;
 		
 	}

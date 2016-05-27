@@ -112,12 +112,12 @@
 					</div>
 					<div class="col-sm-4 boxPadding">
 						<ul class="carSpecs">
-							<li class="icon-ac"><strong></strong>Air Condition</li>
-							<li class="icon-seats"><strong></strong>Seats</li>
-							<li class="icon-gears"><strong></strong>Gearbox</li>
-							<li class="icon-doors"><strong></strong>Doors</li>
-							<li class="icon-bags"><strong></strong>Luggage</li>
-							<li class="icon-age"><strong></strong>Req. Age</li>
+							<li class="icon-ac"><strong></strong>${item.getAircon()}</li>
+							<li class="icon-seats"><strong></strong>${item.getSeats()}</li>
+							<li class="icon-gears"><strong></strong>${item.getGearbox()}</li>
+							<li class="icon-doors"><strong></strong>${item.getDoors()}</li>
+							<li class="icon-bags"><strong></strong>${item.getLuggage()}</li>
+							<li class="icon-age"><strong></strong>${item.getReqAge()}</li>
 						</ul>
 						
 					</div>
@@ -165,12 +165,12 @@
 					</div>
 					<div class="col-sm-4 boxPadding">
 						<ul class="carSpecs">
-							<li class="icon-ac"><strong></strong>Air Condition</li>
-							<li class="icon-seats"><strong></strong>Seats</li>
-							<li class="icon-gears"><strong></strong>Gearbox</li>
-							<li class="icon-doors"><strong></strong>Doors</li>
-							<li class="icon-bags"><strong></strong>Luggage</li>
-							<li class="icon-age"><strong></strong>Req. Age</li>
+							<li class="icon-ac"><strong></strong>${item.getAircon()}</li>
+							<li class="icon-seats"><strong></strong>${item.getSeats()}</li>
+							<li class="icon-gears"><strong></strong>${item.getGearbox()}</li>
+							<li class="icon-doors"><strong></strong>${item.getDoors()}</li>
+							<li class="icon-bags"><strong></strong>${item.getLuggage()}</li>
+							<li class="icon-age"><strong></strong>${item.getReqAge()}</li>
 						</ul>
 						
 					</div>
@@ -243,6 +243,10 @@
  		<form action="${pageContext.request.contextPath}/Controller?action=createUser" method="post">
 			<input type="text" name="username" value="" placeholder="Username"></input>
 			<input type="password" name="password" value="" placeholder="Password"></input>
+			<input type="text" name="email" value="" placeholder="E-mail"></input>
+			<input type="text" name="firstName" value="" placeholder="First Name"></input>
+			<input type="text" name="lastName" value="" placeholder="Last Name"></input>
+			<input type="text" name="phone" value="" placeholder="Phone Number"></input>
 			<button class="loginBtn" type="submit" name="">Create <i class="fa fa-lock"></i></button>
 		</form>
       </div>
