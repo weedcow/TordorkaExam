@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
+import org.apache.catalina.User;
 import org.apache.catalina.util.StringParser;
 
 import dao.*;
@@ -330,7 +332,6 @@ public class ScratchServlet extends HttpServlet {
 			DAO myDao = new DAOimpl();
 			List<Test> usernames = myDao.getUsernames();
 			request.setAttribute("usernamelist", usernames);
-			System.out.println("getAllUsernames" + usernames.toString());
 		}
 		catch(Exception e)
 		{
@@ -346,7 +347,6 @@ public class ScratchServlet extends HttpServlet {
 				List<Cars> cars = myDao.getCars();
 				request.setAttribute("carslist", cars);
 
-				System.out.println("getAllCars" + cars.toString());
 			}
 			catch(Exception e)
 			{
@@ -461,19 +461,25 @@ public class ScratchServlet extends HttpServlet {
 			}
 			
 			private void buyCar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-				// TODO Auto-generated method stub
-				DAO myDao = new DAOimpl();
-				String carIdString = request.getParameter("carId");
-				int carId = Integer.parseInt(carIdString);
-				System.out.println("CarId is " + carId);
-				int userId = cookieSearchNoView(request, response);
-				//is he logged in ? 
-				if(userId != 0 ){
-					Boolean buyCarSuccess = myDao.buyCar(carId, userId);
+				int carId = Integer.parseInt(request.getParameter("carId"));
+				System.out.println(carId);
+				HttpSession session = request.getSession();
+				if(session.getAttribute("user") == null)
+				{
+					System.out.println("Session not set");
+				}else
+				{
+					System.out.println("session set!");
+					Test user = (model.Test) session.getAttribute("user");
+					int userId = user.getID();
+					System.out.println(userId);
+					
+					// DAO
+					
+					DAO myDao = new DAOimpl();
+					myDao.buyCar(carId, userId);
 					getAllCars(request, response);
-					System.out.println("User is logged in");
 				}
-				
 			}
 
 }

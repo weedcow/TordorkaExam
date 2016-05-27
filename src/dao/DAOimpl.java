@@ -47,11 +47,10 @@ public class DAOimpl implements DAO{
 					username.setPassword(rset.getString("password"));
 					username.setEmail(rset.getString("email"));
 					username.setFirstName(rset.getString("firstName"));
-					username.setLastName(rset.getString("lastname"));
+					username.setLastName(rset.getString("lastName"));
 					username.setLevel(rset.getInt("level"));
 					username.setPhone(rset.getString("phone"));
 					username.setDeleted(rset.getInt("deleted"));
-					System.out.println("DAOimpl: "+username);
 					usernameHolder.add(username);
 				}
 			}
@@ -78,7 +77,7 @@ public class DAOimpl implements DAO{
 			rset =  st.executeQuery(sql);
 			while(rset.next()) 
 			{  
-				
+				System.out.println("test");
 				
 				Cars cars = new Cars();
 				cars.setID(rset.getInt("car_id"));
@@ -103,7 +102,6 @@ public class DAOimpl implements DAO{
 					userOwner.setUsername("No one");
 					cars.setUser(userOwner);
 				}
-				System.out.println("DAOimpl: "+cars);
 				carsHolder.add(cars);
 				
 			}
@@ -235,16 +233,18 @@ public class DAOimpl implements DAO{
 		return userHolder;
 	}
 	
-	public Boolean buyCar(int userId, int carId){
-		sql = "UPDATE cars SET owner = ? WHERE car_id= ?";
+	public Boolean buyCar(int carId, int userId){
+		sql = "UPDATE cars SET owner=? WHERE car_id=?";
 		con = connect.getConnection();
+		int resultCount = 0;
 		try
 		{
-			sql = "UPDATE cars SET owner = ? WHERE car_id= ?";
+			
 			PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, carId);
-            pst.setInt(2, userId);
-            pst.executeUpdate();
+
+            pst.setInt(1, userId);
+			pst.setInt(2, carId);
+            resultCount = pst.executeUpdate();
 			
 			System.out.println("Updated car owner.");
 				
@@ -258,7 +258,10 @@ public class DAOimpl implements DAO{
 		{
 			connect.closeConnection(con);
 		}
-		
+		if(resultCount>0)
+		{
+    		return true;
+    	}
 		return false;
 	}
 	public void returnSpecificCar(int carId){

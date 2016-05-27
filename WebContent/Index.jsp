@@ -9,12 +9,6 @@
 <%@page import="java.util.Iterator" %> 
 <%@page import="model.Test" %>
 
-<%! 
-	public void jspInit()
-    {
-      System.out.println("Inicializando el servlet de bienvenida");
-    } 
-%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,7 +24,7 @@
 
 </head>
 <body>
-	<p>HELLO2</p>
+	
 	<div id="wrapper">
 	<div id="top">
 		<div class="container">
@@ -62,6 +56,14 @@
 		<div class="container">
 			<div class="frontText">
 				<h1>Rent a car today!</h1>
+				<h1><%if(session.getAttribute("user")  != null)
+				{
+					
+					Test user = (model.Test) session.getAttribute("user");
+					out.print("Hello "+user.getFirstName());
+					System.out.print(user);
+				}
+				 %></h1>
 				<p>Lorem ipsum dolor sit amet, cursus volutpat volutpat tempor urna bibendum, ultrices arcu in. </p>
 				<p>Lorem ipsum dolor sit amet, cursus volutpat volutpat tempor urna bibendum. </p>
 			</div>
@@ -83,7 +85,7 @@
 	<div class="seeCars">
 		<a id="showCars" href="/javaScratch55/Controller?action=getCars">Show all cars</a>
 	</div>
-	<a href="/javaScratch55/Controller?action=returnCars">Return Cars (Admin)</a>
+	
 	
 	
 	<table>	
@@ -138,56 +140,7 @@
 	
 
 
-	<!--  admin list -->
-	<table>	
-		<tbody>			
-			<c:forEach var="item" items="${carslistAdmin}">
-<%-- 				<tr>
-					<td>${item.getID()}</td>
-					<td>${item.getBrand()}</td>
-					<td>${item.getModel()}</td>
-					<td>${item.getPrice()}</td>
-					<td>${item.getUser().getUsername()}</td>
-					<td class="buyBtn d${item.getOwner()}"><a href="/javaScratch55/Controller?action=buyCar&carId=${item.getID()}">Køb!</a></td>
-				</tr> --%>
-				
-				<div class="box clearfix">
-				<div class="row">
-					<div class="col-sm-5">
-						<div class="carImg">
-							<img src="images/car1.png" />
-						</div>
-					</div>
-					<div class="col-sm-3 boxPadding">
-						<p>Car type: Sedan, Hatchback...</p>
-						<h3>${item.getBrand()} ${item.getModel()}</h3>
-						<p class="renting"><span class="bold">${item.getUser().getUsername()}</span> is currently renting this car.</p>
-					</div>
-					<div class="col-sm-4 boxPadding">
-						<ul class="carSpecs">
-							<li class="icon-ac"><strong></strong>${item.getAircon()}</li>
-							<li class="icon-seats"><strong></strong>${item.getSeats()}</li>
-							<li class="icon-gears"><strong></strong>${item.getGearbox()}</li>
-							<li class="icon-doors"><strong></strong>${item.getDoors()}</li>
-							<li class="icon-bags"><strong></strong>${item.getLuggage()}</li>
-							<li class="icon-age"><strong></strong>${item.getReqAge()}</li>
-						</ul>
-						
-					</div>
-				</div>
-					<div class="lowerBox">
-						<div class="leftBox">
-							Price per day: ${item.getPrice()} $
-						</div>
-
-						<div class="rightBox buyBtn d${item.getOwner()} returnCar">
-						 	<a href="/javaScratch55/Controller?action=returnSpecificCar&carId=${item.getID()}"><span>RETURN CAR</span></a>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</tbody>
-	</table>
+	
 	
 	<h1>
 	
