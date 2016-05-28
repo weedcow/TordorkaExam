@@ -145,6 +145,10 @@ public class ScratchServlet extends HttpServlet {
 					userPath = "admin.jsp";
 					deleteUser(request, response);
 				break;
+				case "logout":
+					userPath = "Index.jsp";
+					logout(request, response);
+				break;
 					
 			}
 		}
@@ -402,7 +406,6 @@ public class ScratchServlet extends HttpServlet {
 						}else
 						{ 
 							PrintWriter writer2 = response.getWriter();
-							writer2.println("Success! Hello "+loggedIn.getFirstName());
 							setCookie(response, username, loggedIn.getID());
 						}
 						
@@ -500,6 +503,11 @@ public class ScratchServlet extends HttpServlet {
 					myDao.buyCar(carId, userId);
 					getAllCars(request, response);
 				}
+			}
+			
+			private void logout(HttpServletRequest request, HttpServletResponse response) {
+				HttpSession session = request.getSession();
+				session.invalidate();
 			}
 
 }
