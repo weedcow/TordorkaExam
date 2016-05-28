@@ -50,8 +50,9 @@ $(document).on("click", ".getClick", function(){
 	}
 });
 
-if(document.URL.indexOf("Index.jsp") >= 0){ 
-	console.log("hej index");
+var page = $(document).find('.pageHidden').text();
+
+if(page == "index"){ 
 
 	xhrGet("Controller?action=getCars", function(responseText){
 		// add to document

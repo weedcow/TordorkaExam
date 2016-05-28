@@ -217,7 +217,7 @@ public class DAOimpl implements DAO{
 			}
 	    	if(count < 1)
 	    	{
-	    		 System.out.println("user does not exist");
+	    		 return null;
 	    	}
 	    	   
 		}

@@ -65,12 +65,7 @@
 	
 
 
-	
-	
-	<h1>
-	
-	<%= (request.getAttribute("logInResponse") == null) ? "" : request.getAttribute("logInResponse") %>
-	</h1>
+	<span class="pageHidden" style="display: none">index</span>
 	
 <%@ include file="includes/modals.jsp" %>
 <%@ include file="includes/footer.jsp" %>

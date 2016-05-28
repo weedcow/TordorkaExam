@@ -393,7 +393,6 @@ public class ScratchServlet extends HttpServlet {
 					Test loggedIn = myDao.logIn(username, password);
 					if(loggedIn != null){
 						// setting session
-						request.setAttribute("logInResponse", "Success!");
 						HttpSession session = request.getSession();
 						session.setAttribute("user", loggedIn);
 						
@@ -405,15 +404,12 @@ public class ScratchServlet extends HttpServlet {
 							
 						}else
 						{ 
-							PrintWriter writer2 = response.getWriter();
-							setCookie(response, username, loggedIn.getID());
+							
 						}
 						
 						
 					}
 					else{
-						PrintWriter writer2 = response.getWriter();
-						writer2.println("not succes :(!");
 					}
 						 	}
 			

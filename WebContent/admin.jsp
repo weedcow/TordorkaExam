@@ -156,6 +156,8 @@ user = (model.Test) session.getAttribute("user");
 						<td><input name="doors" value="${item.getDoors()}"></td>
 						<td><input name="luggage" value="${item.getLuggage()}"></td>
 						<td><input name="age" value="${item.getReqAge()}"></td>
+						<td><input type="hidden" name="deleted" value="${item.getDeleted()}"></td>
+						<td><input type="hidden" name="carId" value="${item.getID()}"></td>
 						<td><button type="submit" name="">Update</button></td>
 						<td><a href="${pageContext.request.contextPath}/Controller?action=deleteCar&carId=${item.getID()}">Delete</a></td>
 					</form>
@@ -200,6 +202,9 @@ user = (model.Test) session.getAttribute("user");
 						<td><input name="firstName" value="${item.getFirstName()}"></td>
 						<td><input name="lastName" value="${item.getLastName()}"></td>
 						<td><input name="phone" value="${item.getPhone()}"></td>
+						<td><input type="hidden" name="userId" value="${item.getID()}"></td>
+						<td><input type="hidden" name="deleted" value="${item.getDeleted()}"></td>
+						<td><input type="hidden" name="level" value="${item.getLevel()}"></td>
 						<td><button type="submit" name="">Update user</button></td>
 						<td><a href="${pageContext.request.contextPath}/Controller?action=deleteUser&userId=${item.getID()}">Delete</a></td>
 					</form>
@@ -265,6 +270,6 @@ user = (model.Test) session.getAttribute("user");
 
 
 
-
+<span class="pageHidden" style="display: none;">admin</span>
 
 <%@ include file="includes/footer.jsp" %>
