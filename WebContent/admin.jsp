@@ -11,17 +11,19 @@
     pageEncoding="ISO-8859-1"%>
     
 <%  
+Test user = new Test();
 if(session.getAttribute("user") == null)
 {
 	response.sendRedirect("Index.jsp");
-}
-Test user = (model.Test) session.getAttribute("user");
+}else
+{
+user = (model.Test) session.getAttribute("user");
 if(user.getLevel() != 1)
 {
 	System.out.println("Not admin");
 	response.sendRedirect("Index.jsp");
 }
-
+}
 
 
 
@@ -156,11 +158,11 @@ if(user.getLevel() != 1)
 			</c:forEach>
 	</tbody>
 </table>
-<a href="/javaScratch55/Controller?action=returnCars">Return Cars (Admin)</a>
+<a href="/javaScratch55/Controller?action=returnCarsReturn">Return Cars (Admin)</a>
 <!--  admin list -->
 	<table>	
 		<tbody>			
-			<c:forEach var="item" items="${carslistAdmin}">
+			<c:forEach var="item" items="${carslistAdminReturn}">
 <%-- 				<tr>
 					<td>${item.getID()}</td>
 					<td>${item.getBrand()}</td>

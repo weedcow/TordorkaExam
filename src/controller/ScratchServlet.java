@@ -113,6 +113,10 @@ public class ScratchServlet extends HttpServlet {
 					userPath = "admin.jsp";
 					returnCars(request, response);
 					break;
+				case "returnCarsReturn":
+					userPath = "admin.jsp";
+					returnCarsRerturn(request, response);
+					break;
 				case "returnUsers":
 					userPath = "admin.jsp";
 					returnUsers(request, response);
@@ -293,7 +297,23 @@ public class ScratchServlet extends HttpServlet {
 			}
 		}
 		
-	
+	private void returnCarsRerturn(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException
+			{
+				try
+				{	
+					
+					DAO myDao = new DAOimpl(); 
+					List<Cars> cars = myDao.getCars();
+					request.setAttribute("carslistAdminReturn", cars);
+
+					System.out.println("getAllCarsADMIN" + cars.toString());
+				}
+				catch(Exception e)
+				{
+					System.out.println(e+"SERVLET ERROR");
+				}
+			}
 
 	private void createUser(HttpServletRequest request, HttpServletResponse response){
 		String username = request.getParameter("username");
