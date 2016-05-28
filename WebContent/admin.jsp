@@ -9,85 +9,135 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+<%@ include file="includes/header.jsp" %>   
 <%  
-Test user = new Test();
 if(session.getAttribute("user") == null)
 {
 	response.sendRedirect("Index.jsp");
 }else
 {
 user = (model.Test) session.getAttribute("user");
-if(user.getLevel() != 1)
-{
-	System.out.println("Not admin");
-	response.sendRedirect("Index.jsp");
+	if(user.getLevel() != 1)
+	{
+		System.out.println("Not admin");
+		response.sendRedirect("Index.jsp");
+	}
 }
-}
-
-
 
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
-<h2>Hello <%out.print(user.getFirstName());%></h2>
 
-<form action="${pageContext.request.contextPath}/Controller?action=createCar" method="post">
-	<input type="text" name="brand" value="" placeholder="Brand"></input>
-	<input type="text" name="model" value="" placeholder="model"></input>
-	<input type="text" name="price" value="" placeholder="Price"></input>
-	<select name="aircon">
-		<option value="">Aircondition</option>
-		<option value="Yes">Yes</option>
-		<option value="No">No</option>	
-	</select>
-	<select name="seats">
-		<option value="">Seats</option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>			
-	</select>
-	<select name="gear">
-		<option value="">Gearbox</option>
-		<option value="Auto">Auto</option>
-		<option value="Manual">Manual</option>	
-	</select>
-	<input type="text" name="luggage" value="" placeholder="Luggage"></input>
-	<select name="age">
-		<option value="">Required age</option>
-		<option value="18">18</option>
-		<option value="21">21</option>	
-	</select>
-	<button class="loginBtn" type="submit" name="">Create <i class="fa fa-lock"></i></button>
-</form>
+<div class="adminBtn">
+	<div class="row">
+		<div class="col-sm-3"><button class="getClick" data-name="new">Add car</button></div>
+		<div class="col-sm-3"><a class="getClick" data-name="car" href="/javaScratch55/Controller?action=returnCars"><button>Update cars</button></a></div>
+		<div class="col-sm-3"><a class="getClick" data-name="user" href="/javaScratch55/Controller?action=returnUsers"><button>Update users</button></a></div>
+		<div class="col-sm-3"><a class="getClick" data-name="return" href="/javaScratch55/Controller?action=returnCarsReturn"><button>Return cars</button></a></div>
+	</div>
+</div>
 
-<h2>Update Cars</h2>
-<a href="/javaScratch55/Controller?action=returnCars">Print Cars</a>
-<table>
+
+<div class="addNewDiv">
+<h3>Add new car</h3>
+		<form class="form-horizontal" action="${pageContext.request.contextPath}/Controller?action=createCar" method="post">
+			<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+				<label for="brand">Brand</label>
+				<input class="form-control" type="text" name="brand" value="" placeholder="Ex: Ford"></input>
+				</div>
+				
+				<div class="form-group">
+					<label for="model">Model</label>
+					<input class="form-control" type="text" name="model" value="" placeholder="Ex: Mondeo"></input>
+				</div>
+				<div class="form-group">
+					<label for="price">Price</label>
+					<input class="form-control" type="text" name="price" value="" placeholder="Ex: 500"></input>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="aircon">Aircondition</label>
+					<select class="form-control" name="aircon">
+						<option value="">Aircondition</option>
+						<option value="Yes">Yes</option>
+						<option value="No">No</option>	
+					</select>
+				</div>
+				<div class="form-group">
+				<label for="seats">Seats</label>
+				<select class="form-control" name="seats">
+					<option value="">Seats</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>			
+				</select>
+				</div>
+				<div class="form-group">
+					<label for="gear">Gear</label>
+					<select class="form-control" name="gear">
+						<option value="">Gearbox</option>
+						<option value="Auto">Auto</option>
+						<option value="Manual">Manual</option>	
+					</select>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="luggage">Luggage</label>
+					<select class="form-control" name="luggage">
+						<option value="">Luggage</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>			
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="age">Age</label>
+					<select class="form-control" name="age">
+						<option value="">Required age</option>
+						<option value="18">18</option>
+						<option value="21">21</option>	
+					</select>
+				</div>
+			</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<button type="submit" name="">Create car</i></button>
+					</div>
+				</div>
+			</div>
+
+		</form>
+</div>
+
+
+
+<div class="updateCarDiv">
+<h3>Update Cars</h3>
+<div class="table-responsive-force">
+<table class="table ">
 	<thead>
 		<tr>
-			<td>carId</td>
-			<td>Brand</td>
-			<td>Model</td>
-			<td>Price</td>
-			<td>Status</td>
-			<td>Owner</td>
-			<td>Aircon</td>
-			<td>Seats</td>
-			<td>Gearbox</td>
-			<td>Doors</td>
-			<td>Luggage</td>
-			<td>ReqAge</td>
-			<td>Deleted</td>
-			<td></td>
-			<td></td>
+			<th>Brand</th>
+			<th>Model</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th>Owner</th>
+			<th>Aircon</th>
+			<th>Seats</th>
+			<th>Gearbox</th>
+			<th>Doors</th>
+			<th>Luggage</th>
+			<th>ReqAge</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -95,7 +145,6 @@ if(user.getLevel() != 1)
 				
 					<tr>
 					<form action="${pageContext.request.contextPath}/Controller?action=updateCar" method="post">
-						<td><input name="carId" value="${item.getID()}"></td>
 						<td><input name="brand" value="${item.getBrand()}"></td>
 						<td><input name="model" value="${item.getModel()}"></td>
 						<td><input name="price" value="${item.getPrice()}"></td>
@@ -107,8 +156,7 @@ if(user.getLevel() != 1)
 						<td><input name="doors" value="${item.getDoors()}"></td>
 						<td><input name="luggage" value="${item.getLuggage()}"></td>
 						<td><input name="age" value="${item.getReqAge()}"></td>
-						<td><input name="deleted" value="${item.getDeleted()}"></td>
-						<td><button class="loginBtn" type="submit" name="">Update<i class="fa fa-lock"></i></button></td>
+						<td><button type="submit" name="">Update</button></td>
 						<td><a href="${pageContext.request.contextPath}/Controller?action=deleteCar&carId=${item.getID()}">Delete</a></td>
 					</form>
 					</tr>
@@ -116,24 +164,28 @@ if(user.getLevel() != 1)
 			</c:forEach>
 	</tbody>
 </table>
+</div>
+</div>
 
-<h1>User Editing</h1>
 
-<a href="/javaScratch55/Controller?action=returnUsers">Print Cars</a>
-<table>
+
+
+
+
+<div class="updateUserDiv">
+<h3>User Editing</h3>
+<div class="table-responsive-force">
+<table class="table">
 	<thead>
 		<tr>
-			<td>userId</td>
-			<td>username</td>
-			<td>password</td>
-			<td>email</td>
-			<td>first name</td>
-			<td>last name</td>
-			<td>phone</td>
-			<td>level</td>
-			<td>deleted</td>
-			<td></td>
-			<td></td>
+			<th>Username</th>
+			<th>Password</th>
+			<th>Email</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Phone</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -141,16 +193,14 @@ if(user.getLevel() != 1)
 				
 					<tr>
 					<form action="${pageContext.request.contextPath}/Controller?action=updateUser" method="post">
-						<td><input name="userId" value="${item.getID()}"></td>
+
 						<td><input name="username" value="${item.getUsername()}"></td>
 						<td><input name="password" value="${item.getPassword()}"></td>
 						<td><input name="email" value="${item.getEmail()}"></td>
 						<td><input name="firstName" value="${item.getFirstName()}"></td>
 						<td><input name="lastName" value="${item.getLastName()}"></td>
 						<td><input name="phone" value="${item.getPhone()}"></td>
-						<td><input name="level" value="${item.getLevel()}"></td>
-						<td><input name="deleted" value="${item.getDeleted()}"></td>
-						<td><button class="loginBtn" type="submit" name="">Update<i class="fa fa-lock"></i></button></td>
+						<td><button type="submit" name="">Update user</button></td>
 						<td><a href="${pageContext.request.contextPath}/Controller?action=deleteUser&userId=${item.getID()}">Delete</a></td>
 					</form>
 					</tr>
@@ -158,7 +208,9 @@ if(user.getLevel() != 1)
 			</c:forEach>
 	</tbody>
 </table>
-<a href="/javaScratch55/Controller?action=returnCarsReturn">Return Cars (Admin)</a>
+</div>
+</div>
+
 <!--  admin list -->
 	<table>	
 		<tbody>			
@@ -211,5 +263,8 @@ if(user.getLevel() != 1)
 	</table>
 
 
-</body>
-</html>
+
+
+
+
+<%@ include file="includes/footer.jsp" %>
