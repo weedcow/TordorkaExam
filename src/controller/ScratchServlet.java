@@ -122,7 +122,7 @@ public class ScratchServlet extends HttpServlet {
 					returnUsers(request, response);
 					break;
 				case "returnSpecificCar":
-					userPath = "Index.jsp";
+					userPath = "admin.jsp";
 					returnSpecificCar(request, response);
 				break;
 				case "createCar":
@@ -267,10 +267,12 @@ public class ScratchServlet extends HttpServlet {
 			{	
 			DAO myDao = new DAOimpl();
 			String carIdString = request.getParameter("carId");
+			HttpSession session = request.getSession();
+			Test user = (model.Test) session.getAttribute("user");
 			int carId = Integer.parseInt(carIdString);
 			int userId = cookieSearch(request, response);
-			if(userId != 1){
-				request.setAttribute("logInResponse", "You are not the admin! STOP CHEATING!");
+			if(user.getLevel() != 1){
+				
 			}else{
 				
 		        	myDao.returnSpecificCar(carId);
