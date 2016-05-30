@@ -13,6 +13,7 @@
 <%@ include file="includes/header.jsp" %>
 	
 	<h2>Rent cars</h2>
+	<hr />
 	<table>	
 		<tbody>			
 			<c:forEach var="item" items="${carslist}">

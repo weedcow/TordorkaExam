@@ -291,7 +291,11 @@ h1, h2, h3, h4, h5 {
 }
 
 .adminBtn button {
-	background: #1C539D;
+	background: #1e5799; /* Old browsers */
+	background: -moz-linear-gradient(left,  #1e5799 0%, #2989d8 50%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  #1e5799 0%,#2989d8 50%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  #1e5799 0%,#2989d8 50%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */
 	color: #fff;
 	width: 100%;
 	padding: 20px;
@@ -303,6 +307,23 @@ h1, h2, h3, h4, h5 {
 }
 
 .username {
+	color: #fff;
+}
+
+.modal .form-group {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.modal-header, .modal-footer {
+	background: #1e5799; /* Old browsers */
+	background: -moz-linear-gradient(left,  #1e5799 0%, #2989d8 50%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  #1e5799 0%,#2989d8 50%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  #1e5799 0%,#2989d8 50%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */
+}
+
+.modal-header h4 {
 	color: #fff;
 }
 

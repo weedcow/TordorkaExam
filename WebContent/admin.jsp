@@ -25,7 +25,8 @@ user = (model.Test) session.getAttribute("user");
 }
 
 %>
-
+<h2>Admin panel</h2>
+<hr />
 <div class="adminBtn">
 	<div class="row">
 		<div class="col-sm-3"><button class="getClick" data-name="new">Add car</button></div>
